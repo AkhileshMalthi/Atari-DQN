@@ -1,0 +1,34 @@
+[project]
+name = "atari-dqn-agent"
+version = "0.1.0"
+description = "End-to-end RL system for training DQN agents on Atari games"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "autorom[accept-rom-license]>=0.6.1",
+    "fastapi>=0.128.0",
+    "gymnasium[accept-rom-license,atari]>=1.2.3",
+    "httpx>=0.28.1",
+    "matplotlib>=3.10.8",
+    "mlflow>=3.8.1",
+    "numpy>=2.2.6",
+    "opencv-python>=4.11.0.86",
+    "pandas>=2.3.3",
+    "pydantic>=2.12.5",
+    "shimmy[atari]>=2.0.0",
+    "torch>=2.9.1",
+    "torchvision>=0.24.1",
+    "uvicorn>=0.40.0",
+]
+
+[project.scripts]
+build = "python:sys.exit(0)"
+train = "python:src.train.train"
+evaluate = "python:src.evaluate.evaluate"
+play = "python:src.evaluate.evaluate"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.14.13",
+]

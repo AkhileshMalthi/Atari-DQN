@@ -1,0 +1,14 @@
+gymnasium[atari,accept-rom-license]
+shimmy[atari]
+ale-py
+opencv-python
+numpy
+torch
+torchvision
+mlflow
+pandas
+matplotlib
+fastapi
+uvicorn
+pydantic
+httpx

@@ -1,0 +1,54 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# MLflow
+mlruns/
+
+# Checkpoints and models (except when explicitly needed)
+checkpoints/
+*.pth
+
+# Videos
+videos/
+
+# Test files
+tests/
+*.test.py
+
+# Documentation
+*.md
+LICENSE
+
+# Project files
+.python-version
+uv.lock
+task_details.txt
+CHANGE_LOG.md
+
+# OS
+.DS_Store
+Thumbs.db
