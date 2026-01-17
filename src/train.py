@@ -9,11 +9,11 @@ from agent import DQNAgent
 from model import AtariCNN
 from memory import ExperienceReplayBuffer
 
-def load_checkpoint(agent, buffer, checkpoint_path):
+def load_checkpoint(agent, checkpoint_path):
     """Load checkpoint to resume training."""
     if os.path.exists(checkpoint_path):
         print(f"Loading checkpoint from {checkpoint_path}...")
-        checkpoint = torch.load(checkpoint_path, map_location=agent.device)
+        checkpoint = torch.load(checkpoint_path, map_location=agent.device, weights_only=False)
         agent.policy_net.load_state_dict(checkpoint['model_state_dict'])
         agent.target_net.load_state_dict(checkpoint['model_state_dict'])
         agent.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
@@ -46,7 +46,7 @@ def train(resume_from=None):
     # Load checkpoint if resuming
     start_step = 1
     if resume_from:
-        start_step = load_checkpoint(agent, buffer, resume_from)
+        start_step = load_checkpoint(agent, resume_from)
     
     # MLflow tracking initialization
     mlflow.set_experiment("DQN_Atari_Pong")
