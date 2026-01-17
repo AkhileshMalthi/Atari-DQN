@@ -1,0 +1,17 @@
+version: "1.0"
+build:
+  # Build commands for Technical Correctness
+  train_image: docker build -t atari-dqn-train -f Dockerfile.train .
+  inference_image: docker build -t atari-dqn-api -f Dockerfile.inference .
+
+train:
+  # Executes the training loop and saves weights
+  command: docker run --gpus all -v $(pwd):/app/output atari-dqn-train python train.py
+
+evaluate:
+  # Runs 100 episodes to verify performance
+  command: docker run -v $(pwd):/app/output atari-dqn-train python evaluate.py --episodes 100
+
+play:
+  # Generates the MP4 demonstration
+  command: docker run -v $(pwd)/videos:/app/videos -v $(pwd):/app/output atari-dqn-train python evaluate.py --record True
