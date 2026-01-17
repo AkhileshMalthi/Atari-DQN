@@ -1,4 +1,4 @@
-# Training Environment Dockerfile
+# Training Environment Dockerfile with UV for fast installs
 FROM python:3.11-slim
 
 # Install system dependencies for OpenCV, Gymnasium, and ALE
@@ -10,13 +10,18 @@ RUN apt-get update && apt-get install -y \
     libgomp1 \
     libgl1-mesa-glx \
     ffmpeg \
+    curl \
     && rm -rf /var/lib/apt/lists/*
+
+# Install uv (fast Python package manager)
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:$PATH"
 
 WORKDIR /app
 
-# Copy requirements and install Python dependencies
+# Copy requirements and install Python dependencies with uv
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --system --no-cache -r requirements.txt
 
 # Copy source code
 COPY src/ ./
