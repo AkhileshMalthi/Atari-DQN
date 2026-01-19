@@ -2,6 +2,12 @@
 
 This repository contains a production-grade Reinforcement Learning (RL) system for training and deploying an AI agent capable of playing Atari games, specifically optimized for `ALE/Pong-v5`. The project implements a Deep Q-Network (DQN) from scratch and wraps it in a robust MLOps pipeline using Docker and FastAPI.
 
+## 🎮 Demo
+
+![DQN Agent Playing Pong](demo.gif)
+
+*The trained DQN agent playing Atari Pong, achieving an average reward of +10.*
+
 ## 🚀 Quick Start (Automated)
 
 The project is orchestrated via `submission.yml` to ensure total reproducibility.
