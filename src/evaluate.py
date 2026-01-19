@@ -13,12 +13,14 @@ def evaluate(game_id="ALE/Pong-v5", num_episodes=100, record_video=False):
     Calculates average reward to verify the 'Average Reward > 10' requirement.
     """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    env = make_atari_env(game_id)
     
+    # Create environment with render_mode for video recording
     if record_video:
-        # Save video to 'videos' folder, recording every episode
+        env = make_atari_env(game_id, render_mode="rgb_array")
         os.makedirs("./videos", exist_ok=True)
         env = RecordVideo(env, video_folder="./videos", episode_trigger=lambda x: True)
+    else:
+        env = make_atari_env(game_id)
 
     # Load Model
     assert isinstance(env.action_space, Discrete), "Action space must be Discrete"
@@ -58,6 +60,9 @@ def evaluate(game_id="ALE/Pong-v5", num_episodes=100, record_video=False):
     # Save results for automated parsing
     with open("eval_results.txt", "w") as f:
         f.write(f"average_reward: {avg_reward}")
+    
+    # Close environment to finalize video recording
+    env.close()
         
     return avg_reward
 

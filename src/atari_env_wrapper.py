@@ -92,9 +92,14 @@ class FrameStack(gym.Wrapper):
         # Stack frames along the first dimension (Channel dimension)
         return np.stack(self.frames, axis=0).squeeze()
 
-def make_atari_env(game_id):
-    """Factory function to build the wrapped environment."""
-    env = gym.make(game_id)
+def make_atari_env(game_id, render_mode=None):
+    """Factory function to build the wrapped environment.
+    
+    Args:
+        game_id: The Atari game ID (e.g., 'ALE/Pong-v5')
+        render_mode: Optional render mode ('rgb_array' for video recording)
+    """
+    env = gym.make(game_id, render_mode=render_mode)
     env = AtariPreprocessing(env)
     env = FrameStack(env, k=4)
     return env
