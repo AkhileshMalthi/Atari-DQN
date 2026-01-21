@@ -1,4 +1,3 @@
-# test_env.py
 import numpy as np
 from atari_env_wrapper import make_atari_env
 

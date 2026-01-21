@@ -1,4 +1,3 @@
-# test_core_logic.py
 import torch
 import numpy as np
 from model import AtariCNN

@@ -1,4 +1,3 @@
-# test_checkpointing.py
 import torch
 import os
 from model import AtariCNN
