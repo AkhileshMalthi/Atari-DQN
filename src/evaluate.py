@@ -31,7 +31,7 @@ def evaluate(game_id="ALE/Pong-v5", num_episodes=100, record_video=False):
         print("❌ Error: final_model.pth not found. Please train the model first.")
         return 0.0
     
-    checkpoint = torch.load("final_model.pth", map_location=device)
+    checkpoint = torch.load("final_model.pth", map_location=device, weights_only=False)
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
 
