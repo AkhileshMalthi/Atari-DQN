@@ -8,11 +8,10 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 ENV PATH="/root/.local/bin:$PATH"
 
 WORKDIR /app
-COPY requirements.txt .
-
 # Install to a virtual environment we can copy
 RUN uv venv /opt/venv
-RUN uv pip install --python /opt/venv/bin/python --no-cache -r requirements.txt
+COPY requirements-inference.txt .
+RUN uv pip install --python /opt/venv/bin/python --no-cache -r requirements-inference.txt
 
 # Stage 2: Runtime (slim image)
 FROM python:3.11-slim
