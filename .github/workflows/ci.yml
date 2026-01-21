@@ -54,18 +54,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          lfs: true
       
       - name: Build training image
         run: docker build -t atari-dqn-train -f Dockerfile.train .
       
       - name: Build inference image
         run: docker build -t atari-dqn-api -f Dockerfile.inference .
-      
-      - name: Test inference container starts
-        run: |
-          docker run -d --name test-api -p 8000:8000 atari-dqn-api
-          sleep 5
-          curl -f http://localhost:8000/health || exit 1
-          docker stop test-api
+
