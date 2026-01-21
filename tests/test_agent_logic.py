@@ -30,7 +30,12 @@ def test_training_step():
         torch.zeros(batch_size, dtype=torch.bool) # dones
     )
     
-    loss = agent.update_model(experiences)
+    result = agent.update_model(experiences)
+    # update_model returns (loss, avg_q) tuple
+    if isinstance(result, tuple):
+        loss = result[0]
+    else:
+        loss = result
     assert isinstance(loss, float) and loss >= 0, "Invalid loss value"
     print("✅ Optimization Step (Forward/Backward/Clipping) Verified!")
 
