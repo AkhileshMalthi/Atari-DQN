@@ -34,7 +34,7 @@ def train(resume_from=None):
     TARGET_UPDATE_FREQ = 10000 # steps
     TOTAL_STEPS = 10000000
     CHECKPOINT_FREQ = 50000
-    EARLY_STOP_REWARD = 10.0
+    EARLY_STOP_REWARD = 18.0
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     env = make_atari_env(GAME_ID)
