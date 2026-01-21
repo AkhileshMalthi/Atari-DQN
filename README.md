@@ -1,5 +1,7 @@
 # Atari DQN: End-to-End Reinforcement Learning System
 
+![CI](https://github.com/AkhileshMalthi/Atari-DQN/actions/workflows/ci.yml/badge.svg)
+
 This repository contains a production-grade Reinforcement Learning (RL) system for training and deploying an AI agent capable of playing Atari games, specifically optimized for `ALE/Pong-v5`. The project implements a Deep Q-Network (DQN) from scratch and wraps it in a robust MLOps pipeline using Docker and FastAPI.
 
 ## Demo
