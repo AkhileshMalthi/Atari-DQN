@@ -20,7 +20,20 @@ The project is orchestrated via `submission.yml` to ensure total reproducibility
 - Docker installed with GPU support (optional but recommended)
 - Python 3.10+ with `uv` package manager (for local development)
 
-### Using Docker (Recommended)
+### Using Docker Compose (Simplest)
+
+```bash
+# Start the inference API
+docker compose up api
+
+# Run training (requires GPU)
+docker compose up train
+
+# Run evaluation
+docker compose up evaluate
+```
+
+### Using Docker (Manual)
 
 1. **Build the environments:**
 ```bash
@@ -38,9 +51,9 @@ docker run --gpus all -v $(pwd):/app/output atari-dqn-train python train.py
 docker run -v $(pwd):/app/output atari-dqn-train python evaluate.py --episodes 100
 ```
 
-4. **Watch the agent play:**
+4. **Start the API:**
 ```bash
-docker run -v $(pwd)/videos:/app/videos -v $(pwd):/app/output atari-dqn-train python evaluate.py --record True
+docker run -p 8000:8000 atari-dqn-api
 ```
 
 ### Local Development

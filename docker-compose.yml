@@ -1,0 +1,46 @@
+services:
+  # Training service - run once to train the model
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./checkpoints:/app/checkpoints
+      - ./mlruns:/app/mlruns
+      - .:/app/output
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: python train.py
+
+  # Inference API service - run to serve predictions
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./final_model.pth:/app/final_model.pth:ro
+    environment:
+      - MODEL_PATH=/app/final_model.pth
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Evaluation service - run to evaluate the model
+  evaluate:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./videos:/app/videos
+      - ./final_model.pth:/app/final_model.pth:ro
+    command: python evaluate.py --episodes 100
